@@ -164,7 +164,7 @@ Edit `.env` file to customize:
 | `MQTT_USER` | (empty) | MQTT username (optional) |
 | `MQTT_PASSWORD` | (empty) | MQTT password (optional) |
 | `MQTT_BASE_TOPIC` | sensors | Base topic for all sensors |
-| `SENSOR_READ_INTERVAL` | 5 | Seconds between readings |
+| `SENSOR_READ_INTERVAL` | 1 | Seconds between readings |
 
 ### Active Sensors
 

@@ -12,7 +12,13 @@ logger = logging.getLogger(__name__)
 
 class MQTTClient:
     def __init__(self):
-        self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+        # Prefer MQTT v5 when available, fall back to MQTT v3.1.1
+        try:
+            protocol = mqtt.MQTTv5
+        except AttributeError:
+            protocol = mqtt.MQTTv311
+
+        self.client = mqtt.Client(protocol=protocol)
         self.client.on_connect = self._on_connect
         self.client.on_disconnect = self._on_disconnect
         self.client.on_publish = self._on_publish

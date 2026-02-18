@@ -12,7 +12,7 @@ MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", "")
 MQTT_BASE_TOPIC = os.getenv("MQTT_BASE_TOPIC", "sensors")
 
 # Sensor Configuration
-SENSOR_READ_INTERVAL = int(os.getenv("SENSOR_READ_INTERVAL", "5"))  # seconds
+SENSOR_READ_INTERVAL = int(os.getenv("SENSOR_READ_INTERVAL", "1"))  # seconds
 
 # Sensor Locations
 SENSOR_LOCATIONS = {
