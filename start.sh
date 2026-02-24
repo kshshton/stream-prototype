@@ -46,7 +46,7 @@ if [ "$response" = "y" ] || [ "$response" = "Y" ]; then
         echo ""
         echo "Starting Mosquitto broker..."
         docker-compose up -d
-        echo "✓ Mosquitto started on tcp://localhost:1883"
+        echo "✓ Mosquitto started on tcp://host.docker.internal:1883"
         sleep 2
     else
         echo "Docker Compose not found. Please start your MQTT broker manually."

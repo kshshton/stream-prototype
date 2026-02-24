@@ -97,8 +97,8 @@ docker-compose up -d
 ```
 
 This will start the Eclipse Mosquitto MQTT broker on:
-- **MQTT**: `tcp://localhost:1883`
-- **WebSocket**: `ws://localhost:9001`
+- **MQTT**: `tcp://host.docker.internal:1883`
+- **WebSocket**: `ws://host.docker.internal:9001`
 
 #### Start the Sensor Server
 
@@ -159,12 +159,12 @@ Edit `.env` file to customize:
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `MQTT_BROKER` | localhost | MQTT broker address |
+| `MQTT_BROKER` | host.docker.internal | MQTT broker address |
 | `MQTT_PORT` | 1883 | MQTT port |
 | `MQTT_USER` | (empty) | MQTT username (optional) |
 | `MQTT_PASSWORD` | (empty) | MQTT password (optional) |
 | `MQTT_BASE_TOPIC` | sensors | Base topic for all sensors |
-| `SENSOR_READ_INTERVAL` | 1 | Seconds between readings |
+| `SENSOR_READ_INTERVAL` | 10 | Seconds between readings |
 
 ### Active Sensors
 
@@ -197,10 +197,10 @@ SENSOR_LOCATIONS = {
 
 ```bash
 # Subscribe to all sensor messages
-docker exec mosquitto-broker mosquitto_sub -h localhost -t "sensors/#" -v
+docker exec mosquitto-broker mosquitto_sub -h host.docker.internal -t "sensors/#" -v
 
 # Subscribe to specific sensor
-docker exec mosquitto-broker mosquitto_sub -h localhost -t "sensors/pms5003/#" -v
+docker exec mosquitto-broker mosquitto_sub -h host.docker.internal -t "sensors/pms5003/#" -v
 ```
 
 ### Using Python mqtt Client
@@ -213,7 +213,7 @@ def on_message(client, userdata, msg):
 
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 client.on_message = on_message
-client.connect("localhost", 1883, 60)
+client.connect("host.docker.internal", 1883, 60)
 client.subscribe("sensors/#")
 client.loop_forever()
 ```
@@ -226,7 +226,7 @@ npm install mqtt
 
 ```javascript
 const mqtt = require('mqtt');
-const client = mqtt.connect('mqtt://localhost:1883');
+const client = mqtt.connect('mqtt://host.docker.internal:1883');
 
 client.on('connect', () => {
   client.subscribe('sensors/#', (err) => {

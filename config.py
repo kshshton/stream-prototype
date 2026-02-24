@@ -5,14 +5,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # MQTT Configuration
-MQTT_BROKER = os.getenv("MQTT_BROKER", "localhost")
+MQTT_BROKER = os.getenv("MQTT_BROKER", "host.docker.internal")
 MQTT_PORT = int(os.getenv("MQTT_PORT", "1883"))
 MQTT_USER = os.getenv("MQTT_USER", "")
 MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", "")
 MQTT_BASE_TOPIC = os.getenv("MQTT_BASE_TOPIC", "sensors")
 
 # Sensor Configuration
-SENSOR_READ_INTERVAL = int(os.getenv("SENSOR_READ_INTERVAL", "1"))  # seconds
+SENSOR_READ_INTERVAL = int(os.getenv("SENSOR_READ_INTERVAL", "10"))  # seconds
 
 # Sensor Locations
 SENSOR_LOCATIONS = {
