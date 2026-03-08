@@ -50,7 +50,7 @@ if ($response -eq 'y' -or $response -eq 'Y') {
         Write-Host ''
         Write-Host 'Starting Mosquitto broker...'
         docker-compose up -d
-        Write-Host 'Mosquitto started on tcp://host.docker.internal:1883'
+        Write-Host 'Mosquitto started on tcp://localhost:1883'
         Start-Sleep -Seconds 2
     } else {
         Write-Host 'Docker Compose not found. Start MQTT broker manually.'

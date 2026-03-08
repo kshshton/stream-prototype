@@ -54,7 +54,7 @@ client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect("host.docker.internal", 1883, 60)
+client.connect("localhost", 1883, 60)
 client.loop_forever()
 ```
 
@@ -65,7 +65,7 @@ import paho.mqtt.client as mqtt
 import json
 
 class SensorListener:
-    def __init__(self, broker="host.docker.internal", port=1883):
+    def __init__(self, broker="localhost", port=1883):
         self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
         self.client.on_connect = self._on_connect
         self.client.on_message = self._on_message
@@ -131,7 +131,7 @@ npm install mqtt
 ```javascript
 const mqtt = require('mqtt');
 
-const client = mqtt.connect('mqtt://host.docker.internal:1883');
+const client = mqtt.connect('mqtt://localhost:1883');
 
 client.on('connect', () => {
   console.log('Connected to MQTT broker');
@@ -262,7 +262,7 @@ class SensorAggregator:
                 print(f"  CO₂: {data['co2']['ppm']} ppm")
 
     def start(self):
-        self.client.connect("host.docker.internal", 1883, 60)
+        self.client.connect("localhost", 1883, 60)
         self.client.loop_forever()
 
 # Run aggregator
@@ -298,7 +298,7 @@ class LocationFilter:
             print(f"Error: {e}")
 
     def start(self):
-        self.client.connect("host.docker.internal", 1883, 60)
+        self.client.connect("localhost", 1883, 60)
         self.client.loop_forever()
 
 # Monitor only office sensors
@@ -347,7 +347,7 @@ class ThresholdMonitor:
             print(f"Error: {e}")
 
     def start(self):
-        self.client.connect("host.docker.internal", 1883, 60)
+        self.client.connect("localhost", 1883, 60)
         self.client.loop_forever()
 
 # Run threshold monitor
@@ -361,13 +361,13 @@ monitor.start()
 
 ```bash
 # All sensors
-docker exec mosquitto-broker mosquitto_sub -h host.docker.internal -t "sensors/#" -v
+docker exec mosquitto-broker mosquitto_sub -h localhost -t "sensors/#" -v
 
 # Specific sensor type
-docker exec mosquitto-broker mosquitto_sub -h host.docker.internal -t "sensors/pms5003/#" -v
+docker exec mosquitto-broker mosquitto_sub -h localhost -t "sensors/pms5003/#" -v
 
 # Real-time pretty printing
-docker exec mosquitto-broker mosquitto_sub -h host.docker.internal -t "sensors/#" | jq .
+docker exec mosquitto-broker mosquitto_sub -h localhost -t "sensors/#" | jq .
 ```
 
 ### Using mqtt-cli
@@ -378,10 +378,10 @@ brew install mqtt-cli  # macOS
 # or download from https://hivemq.github.io/mqtt-cli/
 
 # Subscribe to all
-mqtt-cli sub -h host.docker.internal -t "sensors/#"
+mqtt-cli sub -h localhost -t "sensors/#"
 
 # Subscribe with format
-mqtt-cli sub -h host.docker.internal -t "sensors/+/+" -of MQTT3
+mqtt-cli sub -h localhost -t "sensors/+/+" -of MQTT3
 ```
 
 ## Handling Errors
@@ -394,7 +394,7 @@ import json
 import time
 
 class RobustSensorClient:
-    def __init__(self, broker="host.docker.internal", port=1883, max_retries=5):
+    def __init__(self, broker="localhost", port=1883, max_retries=5):
         self.broker = broker
         self.port = port
         self.max_retries = max_retries
